@@ -1,5 +1,5 @@
-let num1;
-let num2;
+let num1 = "";
+let num2 = "";
 let operator;
 
 function add(num1, num2){
@@ -28,7 +28,20 @@ function operate(operator, num1, num2){
     };
 };
 
-console.log(operate("+", 1, 6));
-console.log(operate("-", 1, 6));
-console.log(operate("*", 1, 6));
-console.log(operate("/", 1, 6));
+const keys = document.querySelectorAll(".keyboard button");
+
+keys.forEach((key) => {
+    key.addEventListener("click", (e) => {
+        const text = e.target.innerText;
+        const screen = document.querySelector(".screen");
+
+        if (["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."].includes(text)) {
+            num1 += text;
+            screen.textContent = num1;
+
+        } else if (["+", "-", "*", "/"].includes(text)) {
+            operator = text;
+            screen.textContent = operator;
+        }
+    });
+});
