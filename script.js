@@ -36,10 +36,14 @@ keys.forEach((key) => {
         const screen = document.querySelector(".screen");
 
         if (["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."].includes(text)) {
-            num1 += text;
-            screen.textContent = num1;
-
-        } else if (["+", "-", "*", "/"].includes(text)) {
+            if(operator){
+                num2 += text;
+                screen.textContent = num2;
+            } else{
+                num1 += text;
+                screen.textContent = num1;
+            }
+        } else if (num1 && ["+", "-", "*", "/"].includes(text)) {
             operator = text;
             screen.textContent = operator;
         }
