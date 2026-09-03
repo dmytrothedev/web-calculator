@@ -46,6 +46,9 @@ keys.forEach((key) => {
         } else if (num1 && ["+", "-", "*", "/"].includes(text)) {
             operator = text;
             screen.textContent = operator;
+        } else if (num1 && num2 && operator && text === "="){
+            const result = operate(operator, Number(num1), Number(num2))
+            screen.textContent = result;
         }
     });
 });
