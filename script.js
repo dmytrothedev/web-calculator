@@ -29,6 +29,8 @@ function operate(operator, num1, num2){
 };
 
 
+
+
 const keys = document.querySelectorAll(".keyboard button");
 
 
@@ -45,7 +47,7 @@ keys.forEach((key) => {
             screen.textContent = null;
         }
 
-        if (["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."].includes(text)) {
+        if (["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].includes(text)) {
             if(operator){
                 num2 += text;
                 screen.textContent = num2;
@@ -53,10 +55,15 @@ keys.forEach((key) => {
                 num1 += text;
                 screen.textContent = num1;
             }
-        } else if (num1 && ["+", "-", "*", "/"].includes(text)) {
-            if (num1 && num2 && operator){
-                const result = operate(operator, Number(num1), Number(num2))
-                screen.textContent = result;
+        } else if (num1 !== "" && ["+", "-", "*", "/"].includes(text)) {
+            if (num1 !== "" && num2 && operator){
+                let result = operate(operator, Number(num1), Number(num2))
+                result = Math.round(result * 100) / 100;                
+                if(result === Infinity || result === -Infinity || Number.isNaN(result)){
+                    screen.textContent = "not today"
+                }else {
+                    screen.textContent = result;
+                }
                 num1 = result;
                 num2= "";
                 operator = text;
@@ -64,10 +71,15 @@ keys.forEach((key) => {
                 operator = text;
                 screen.textContent = operator;
             };
-        } else if (num1 && num2 && operator && text === "="){
-            const result = operate(operator, Number(num1), Number(num2))
-            screen.textContent = result;
-            num1 = result;
+        } else if (num1 !== "" && num2 && operator && text === "="){
+            let result = (operate(operator, Number(num1), Number(num2)))
+            result = Math.round(result * 100) / 100;
+            if(result === Infinity || result === -Infinity || Number.isNaN(result)){
+                screen.textContent = "not today"
+            }else {
+                screen.textContent = result;
+            }
+            num1 = "";
             num2= "";
             operator = null;
         } else if(text === "CE"){
