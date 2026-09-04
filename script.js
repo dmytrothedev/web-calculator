@@ -28,12 +28,22 @@ function operate(operator, num1, num2){
     };
 };
 
+
 const keys = document.querySelectorAll(".keyboard button");
+
+
+//forEach because method querySelectorAll returns not an array, but a NodeList. To iterate thruogh items use forEach
 
 keys.forEach((key) => {
     key.addEventListener("click", (e) => {
         const text = e.target.innerText;
         const screen = document.querySelector(".screen");
+        function clear(){
+            num1 = "";
+            num2= "";
+            operator = null;
+            screen.textContent = null;
+        }
 
         if (["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."].includes(text)) {
             if(operator){
@@ -44,11 +54,23 @@ keys.forEach((key) => {
                 screen.textContent = num1;
             }
         } else if (num1 && ["+", "-", "*", "/"].includes(text)) {
+            if (num1 && num2 && operator){
+                const result = operate(operator, Number(num1), Number(num2))
+                screen.textContent = result;
+                num1 = result;
+                num2= "";
+                operator = null;
+            }
             operator = text;
             screen.textContent = operator;
         } else if (num1 && num2 && operator && text === "="){
             const result = operate(operator, Number(num1), Number(num2))
             screen.textContent = result;
+            num1 = result;
+            num2= "";
+            operator = null;
+        } else if(text === "CE"){
+            clear();
         }
     });
 });
