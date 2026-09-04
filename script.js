@@ -59,10 +59,11 @@ keys.forEach((key) => {
                 screen.textContent = result;
                 num1 = result;
                 num2= "";
-                operator = null;
-            }
-            operator = text;
-            screen.textContent = operator;
+                operator = text;
+            }else {
+                operator = text;
+                screen.textContent = operator;
+            };
         } else if (num1 && num2 && operator && text === "="){
             const result = operate(operator, Number(num1), Number(num2))
             screen.textContent = result;
